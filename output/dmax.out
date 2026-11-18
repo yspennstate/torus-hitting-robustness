@@ -1,0 +1,18 @@
+D=2 L=16 c=0.5: max d=0.0809 at (0, 8); sites d>1e-9: 6; bound V/(1-dmax)/t = 1.59916; V/t=1.46975
+D=2 L=16 c=1.0: max d=0.1910 at (8, 0); sites d>1e-9: 6; bound V/(1-dmax)/t = 2.79597; V/t=2.26204
+D=2 L=16 c=2.0: max d=0.5622 at (0, 8); sites d>1e-9: 6; bound V/(1-dmax)/t = 14.09330; V/t=6.17064
+D=2 L=32 c=0.5: max d=0.0397 at (0, 16); sites d>1e-9: 6; bound V/(1-dmax)/t = 1.57459; V/t=1.51203
+D=2 L=32 c=1.0: max d=0.0935 at (16, 0); sites d>1e-9: 6; bound V/(1-dmax)/t = 2.64408; V/t=2.39683
+D=2 L=32 c=2.0: max d=0.2727 at (0, 16); sites d>1e-9: 6; bound V/(1-dmax)/t = 9.51674; V/t=6.92125
+D=2 L=64 c=0.5: max d=0.0198 at (0, 32); sites d>1e-9: 6; bound V/(1-dmax)/t = 1.57063; V/t=1.53956
+D=2 L=64 c=1.0: max d=0.0465 at (32, 0); sites d>1e-9: 6; bound V/(1-dmax)/t = 2.60724; V/t=2.48593
+D=2 L=64 c=2.0: max d=0.1354 at (0, 32); sites d>1e-9: 6; bound V/(1-dmax)/t = 8.60582; V/t=7.44056
+D=3 L=12 c=0.5: max d=0.2151 at (0, 0, 6); sites d>1e-9: 180; bound V/(1-dmax)/t = 2.35794; V/t=1.85085
+D=3 L=12 c=1.0: max d=0.5876 at (6, 0, 0); sites d>1e-9: 180; bound V/(1-dmax)/t = 8.89222; V/t=3.66706
+D=3 L=12 c=2.0: max d=2.5144 at (0, 6, 0); sites d>1e-9: 162; bound V/(1-dmax)/t = inf; V/t=17.68843
+D=3 L=16 c=0.5: max d=0.1530 at (0, 0, 8); sites d>1e-9: 252; bound V/(1-dmax)/t = 2.26333; V/t=1.91701
+D=3 L=16 c=1.0: max d=0.4140 at (0, 0, 8); sites d>1e-9: 252; bound V/(1-dmax)/t = 6.70946; V/t=3.93148
+D=3 L=16 c=2.0: max d=1.7190 at (0, 8, 0); sites d>1e-9: 234; bound V/(1-dmax)/t = inf; V/t=20.14787
+D=3 L=24 c=0.5: max d=0.0988 at (0, 0, 12); sites d>1e-9: 396; bound V/(1-dmax)/t = 2.20770; V/t=1.98965
+D=3 L=24 c=1.0: max d=0.2656 at (0, 0, 12); sites d>1e-9: 396; bound V/(1-dmax)/t = 5.76027; V/t=4.23061
+D=3 L=24 c=2.0: max d=1.0804 at (0, 12, 0); sites d>1e-9: 390; bound V/(1-dmax)/t = inf; V/t=23.12693

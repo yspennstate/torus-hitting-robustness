@@ -1,0 +1,611 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage[margin=1.15in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\doi}[1]{\href{https://doi.org/#1}{doi:\nolinkurl{#1}}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\thit}{t_{\mathrm{hit}}}
+\newcommand{\rhit}{\rho_{\mathrm{hit}}}
+\setlength{\emergencystretch}{2.5em}
+
+\begin{document}
+
+\title[Hitting-time robustness of the discrete torus]{Hitting-time robustness of the discrete torus}
+\author{Yitzchak Shmalo}
+\address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
+\email{yspennstate@gmail.com}
+\subjclass[2020]{60J10, 60J27, 05C81}
+\keywords{random walk, discrete torus, hitting time, adversarial perturbation, heat kernel, Markov chain robustness}
+
+\begin{abstract}
+Zuckerman asked how far an adversary who may change every transition probability of a random walk by a factor in
+$[1-\eps,1+\eps]$, depending on the whole history, can raise its maximum expected hitting time. For the simple random
+walk on the discrete torus $\Z_L^D$ with $L$ even, $D\ge3$ and $\eps=c/L$ we show that the strongest such adversary raises the
+maximum expected hitting time by a factor tending to $((e^c-1)/c)^D$. An adversary that pushes every coordinate away from the
+target independently is optimal up to a factor $1+o(1)$; under it, in continuous time, the distances of the coordinates from those of the target are independent copies of one birth--death chain on $\{0,\dots,L/2\}$, the folded chain. The proof that no
+adversary does better by more than a factor $1+o(1)$ rests on a product inequality for the transition probabilities to $0$ of a birth--death chain on the half-line, proved
+by coupling a killed time-inhomogeneous chain; at times of order at most $L^2/\log L$ it transfers to the folded chain up to
+an error polynomially small in $L$. It follows that the hitting-time robustness of
+$\Z_L^D$ is of order one over the diameter; the lower bound is the case of the torus of a conjecture of Zuckerman for all
+graphs.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Let $G$ be a connected graph and $P$ the transition probabilities of the simple random walk on $G$. Following
+Zuckerman~\cite{Zuc26}, a \emph{standard $\eps$-adversary} ($0<\eps<1$) moves the walk from its current vertex $v$ to a
+neighbour $w$ with a probability of its choosing in $[(1-\eps)P(v,w),(1+\eps)P(v,w)]$, the probabilities from $v$
+summing to one; the choice may depend on the whole history. Write $H_v$ for the hitting time of $v$, $h^+(u,v)$ for
+the supremum of $\E_u H_v$ over all standard $\eps$-adversaries, $\thit^+(\eps)=\max_{u,v}h^+(u,v)$, and
+$\thit=\max_{u,v}\E_uH_v$ for the unperturbed walk. The \emph{hitting-time robustness} is
+\[
+\rhit(C)=\sup\{\eps:\ \thit^+(\eps)\le C\,\thit\}.
+\]
+When $C$ is omitted, $C$ is a sufficiently large constant, as in~\cite[Definition~1.9]{Zuc26}.
+Zuckerman proved $\rhit=\Omega(1/t_{\mathrm{mix}})$ for every graph~\cite[Theorem~1.10]{Zuc26}, where
+$t_{\mathrm{mix}}$ is the mixing time (of the lazy walk when $G$ is bipartite~\cite[Remark~2.9]{Zuc26}), conjectured
+that $\rhit=\Omega(1/\Delta)$ with $\Delta$ the diameter~\cite[Conjecture~1.16]{Zuc26}, proved this for trees~\cite[Theorem~1.11]{Zuc26}, and listed
+grids among the natural graphs whose robustness is to be determined~\cite[Section~1.10]{Zuc26}. Counterexamples to the conjecture, on cubic graphs of logarithmic diameter and on regular graphs of diameter three, have been proposed in~\cite{Anon26}. On the torus
+$\Z_L^D$ the mixing time is of order $L^2$ for fixed $D$~\cite{LPW17}, while $\Delta=DL/2$, so the general bound gives
+$\rhit=\Omega(1/L^2)$ and leaves a gap of a factor $L$. On the other side, the adversary constructed on a regular graph in the proof
+of~\cite[Theorem~4.5]{Zuc26}, a Metropolis chain whose holding probabilities are spread over the edges in proportion to
+their probabilities, multiplies every transition probability by a factor in $[1-\eps,(1-\eps)^{-1}]$. For $\eps<1/2$
+it is therefore a standard $\eps/(1-\eps)$-adversary, and under it the maximum expected hitting time is
+$\Omega(n\,e^{\eps\bar\Delta})$, where $n$ is the number of vertices and $\bar\Delta$ the average distance. On
+$\Z_L^D$ with $D\ge3$ we have $n=L^D$, $\bar\Delta$ of order $L$ and $\thit$ of order $L^D$, so this gives
+$\rhit=O(1/L)$, and the gap is on the lower side. We close
+this gap on $\Z_L^D$ with $L$ even and $D\ge3$, by identifying an adversary that is optimal up to a factor $1+o(1)$ and computing its
+maximum expected hitting time. For the hypercube $\{0,1\}^d$ the strongest adversary is determined exactly in~\cite{ShmCube}: at $\eps=c/d$ it raises
+the maximum expected hitting time by a factor tending to $2^c$.
+
+We work on the torus $\Z_L^D$ with $L$ even and target $0$. Its folded coordinates are
+$k_a=\min(x_a,L-x_a)\in\{0,\dots,m\}$, $m=L/2$. Consider the \emph{product adversary} $Q$ that in each coordinate puts the larger
+weight $(1+\eps)/(2D)$ on the step that increases $k_a$ and the smaller weight $(1-\eps)/(2D)$ on the step that
+decreases it, and leaves the weights $1/(2D)$ unchanged when $k_a\in\{0,m\}$, where the two steps in coordinate $a$
+both increase or both decrease $k_a$. These weights lie in the allowed range and sum to one, so $Q$ is a standard
+$\eps$-adversary, and it does not depend on the history. On the hypercube the supremum is attained by the adversary
+that at every vertex sends the least mass toward the target that the bounds allow~\cite{ShmCube}. On the torus $Q$ is the analogous adversary, but at the sites where a coordinate is $0$ or $m$ it is not the best one-step choice against its own hitting times, and the
+comparison described after Corollary~\ref{cor:rho} is needed. The condition $D\ge3$ makes the simple random walk on $\Z^D$ transient; for $D=2$ the order of $\thit$ is $L^2\log L$ (Section~\ref{sec:checks}). We take
+$L$ even so that at the far end $k_a=m$ both steps in coordinate $a$ decrease $k_a$. Here and below $O$ hides constants that depend only on $c$ and $D$, the constants in
+$\Omega$ and $\Theta$ may also depend on $C$, and $o(1)$ refers to $L\to\infty$.
+
+\begin{theorem}\label{thm:main}
+Let $D\ge3$ and $c>0$ be fixed and let $L\to\infty$ through even integers. For the simple random walk on $\Z_L^D$,
+\[
+\lim_{L\to\infty}\frac{\thit^+(c/L)}{\thit}=\Bigl(\frac{e^c-1}{c}\Bigr)^{D}.
+\]
+More precisely, $\thit^+(c/L)=\max_x\E^Q_xH_0\,\bigl(1+O((\log L)^{D/2}/L)\bigr)$, and
+$L^{-D}\max_x\E^Q_xH_0\to G_D\bigl((e^c-1)/c\bigr)^D$, where $G_D=\int_0^\infty P_0(S_t=0)\,dt$ for the
+continuous-time simple random walk $S$ on $\Z^D$ with jump rate one.
+\end{theorem}
+
+\begin{corollary}\label{cor:rho}
+Under the hypotheses of Theorem~\ref{thm:main}, for every $C>1$, $L\,\rhit(C)\to r_D(C)$, the unique root of
+$((e^r-1)/r)^D=C$. In particular $\rhit(C)=\Theta(1/\Delta)$ on $\Z_L^D$.
+\end{corollary}
+
+The corollary follows from the theorem because $\thit^+(\eps)$ is nondecreasing in $\eps$ (the set of adversaries
+grows) and $r\mapsto((e^r-1)/r)^D$ is continuous and strictly increasing from $1$ to $\infty$ on $(0,\infty)$: for
+$c_1<r_D(C)<c_2$ the theorem gives $\thit^+(c_1/L)<C\thit<\thit^+(c_2/L)$ for large $L$, hence
+$c_1/L\le\rhit(C)\le c_2/L$.
+
+Under $Q$ the folded coordinates, run in continuous time at rate $1/D$ each, are independent copies of the
+\emph{folded chain} $X$, a birth--death chain on $\{0,\dots,m\}$ with drift $\eps$ away from $0$, and $V_Q(x)=\E^Q_xH_0$ can be computed; by symmetry it depends on $x$ only through
+$k=(k_1,\dots,k_D)$, and we write $V_Q(k)$.
+Let $B$ send a function $f$ to $Bf(x)$, the largest value of $\sum_yP'(y)f(y)$ over the one-step laws $P'$ an
+adversary may use at $x$. A supermartingale argument (Section~\ref{sec:reduction}) shows that no adversary beats $Q$
+by more than the factor $1/(1-\bar d)$, where $\bar d=\max_{x\ne0}(BV_Q(x)-QV_Q(x))$. The difficulty is that $QV_Q$ falls
+short of $BV_Q$ at some sites. At a site where some coordinate equals $0$ or $m$, both steps in that coordinate change $k_a$ in the same
+direction, and the adversary may gain by moving weight to another coordinate. The deficit $BV_Q(x)-QV_Q(x)$ is at most
+$\eps/D$ times a sum of differences such as $V_Q(k+e_a)-V_Q(k+e_i)$, where $e_a$ is the $a$-th unit vector, $k_a=0$
+and $1\le k_i\le m-1$: a step out of $0$ in a fresh coordinate against a further step out in an interior one.
+Monotonicity of $V_Q$ in each coordinate does not compare the two. The new ingredient is an inequality for the chain
+$X^\infty$ on $\{0,1,2,\dots\}$ that jumps from $0$ to $1$ at rate $1$ and otherwise up at rate $(1+\eps)/2$ and
+down at rate $(1-\eps)/2$: with $f_t(x)=P_x(X^\infty_t=0)$,
+\begin{equation}\label{eq:key}
+f_t(1)\,f_t(j)\ \ge\ f_t(0)\,f_t(j+1)\qquad(t>0,\ j\ge1).
+\end{equation}
+At $\eps=0$, $f_t(j)=e^{-t}I_j(t)$ with $I_j$ the modified Bessel functions, and~\eqref{eq:key} follows by chaining the
+Tur\'an-type inequality $I_\nu^2\ge I_{\nu-1}I_{\nu+1}$~\cite{BP}. For $\eps>0$ we prove it by a coupling of a
+time-inhomogeneous chain (Lemma~\ref{lem:halfline}). With it, and with Delmotte's Gaussian
+bounds~\cite{Del99} for the on-diagonal kernel of $X$, the deficit satisfies $\bar d=O((\log L)^{D/2}/L)$, so $Q$ is
+optimal up to a factor $1+o(1)$, and Theorem~\ref{thm:main} reduces to computing $\max_xV_Q(x)$.
+
+\emph{Outline.} Section~\ref{sec:reduction} proves the reduction to $Q$ and the form of the deficit. Section~\ref{sec:folded} collects facts about $X$, and Section~\ref{sec:halfline} proves~\eqref{eq:key}. Section~\ref{sec:deficit} uses it to bound $\bar d$ by $O((\log L)^{D/2}/L)$, and
+Section~\ref{sec:value} computes
+$\max V_Q$. Section~\ref{sec:checks} gives numerical values of $\thit^+(1/L)/\thit$ on $\Z_L^2$ and of $\max_xV_Q(x)/\thit$ on $\Z_L^3$. The dependencies are as follows.
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Section & Result & Uses\\ \midrule
+\ref{sec:reduction} & reduction to $Q$, form of $d$ (Lemmas~\ref{lem:reduction}, \ref{lem:deficit}) & Lemma~\ref{lem:folded}(iii)\\
+\ref{sec:folded} & the folded chain (Lemmas~\ref{lem:folded}--\ref{lem:kernel}) & \cite{Del99}, on-diagonal\\
+\ref{sec:halfline} & product inequality~\eqref{eq:key} (Lemma~\ref{lem:halfline}) & --\\
+\ref{sec:deficit} & $\bar d=O((\log L)^{D/2}/L)$ (Proposition~\ref{prop:deficit}) & Sections~\ref{sec:reduction}--\ref{sec:halfline}\\
+\ref{sec:value} & $\max_xV_Q(x)$ (Proposition~\ref{prop:value}), proof of Theorem~\ref{thm:main} & Section~\ref{sec:folded}\\
+\ref{sec:checks} & numerical values for $D=2,3$ & --\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Reduction to the product adversary}\label{sec:reduction}
+
+By transitivity it suffices to consider the target $0$. Write $V=V_Q$, $V(x)=\E^Q_xH_0$; by symmetry $V(x)$ depends
+only on the folded coordinates $k=k(x)$ and is invariant under permutations of them, and we write $V(k)$. First-step
+analysis gives $QV(x)=V(x)-1$ for $x\ne0$. For a function $f$ on $\Z_L^D$ let
+\[
+B f(x)=\max\Bigl\{\sum_yP'(y)f(y)\Bigr\},
+\]
+the maximum over probability vectors $P'$ on the $2D$ neighbours of $x$ with $P'(y)\in[(1-\eps)/(2D),(1+\eps)/(2D)]$,
+and call $d(x)=BV(x)-QV(x)\ge0$, $x\ne0$, the \emph{deficit}.
+
+\begin{lemma}\label{lem:reduction}
+If $\bar d=\max_{x\ne0}d(x)<1$, then $\max_xV(x)\le\thit^+(\eps)\le\max_xV(x)/(1-\bar d)$.
+\end{lemma}
+
+\begin{proof}
+The lower bound holds because $Q$ is a standard $\eps$-adversary. For the upper bound fix any standard
+$\eps$-adversary, a start $x$, and let $\xi_t$ be the walk it produces and $\mathcal F_t$ its history. On $\{t<H_0\}$,
+$\E[V(\xi_{t+1})\mid\mathcal F_t]\le BV(\xi_t)=V(\xi_t)-1+d(\xi_t)\le V(\xi_t)-(1-\bar d)$. Hence
+$V(\xi_{t\wedge H_0})+(1-\bar d)(t\wedge H_0)$ is a supermartingale, so $(1-\bar d)\E_x[t\wedge H_0]\le V(x)$, and
+monotone convergence gives $\E_xH_0\le V(x)/(1-\bar d)$.
+\end{proof}
+
+The deficit has a simple form. Fix $x\ne0$ with folded coordinates $k$ and split the coordinates into
+$I=\{a:1\le k_a\le m-1\}$, $S_0=\{a:k_a=0\}$ and $S_m=\{a:k_a=m\}$, with $s_0=|S_0|$, $s_m=|S_m|$. For $a\in I$ the
+two neighbours in direction $a$ have values ($e_a$ is the $a$-th unit vector) $o_a=V(k+e_a)$ (outward) and $w_a=V(k-e_a)$ (inward). For $a\in S_0$ both
+neighbours have the value $A=V(k+e_a)$, which by permutation symmetry is the same for all $a\in S_0$; for $i\in S_m$
+both have the value $M=V(k-e_i)$, the same for all $i\in S_m$. By Lemma~\ref{lem:folded}(iii) below,
+\begin{equation}\label{eq:order}
+w_a\le V(k)\le o_a\quad(a\in I),\qquad M\le V(k)\le A.
+\end{equation}
+
+\begin{lemma}\label{lem:deficit}
+If $S_m=\emptyset$, then $d(x)\le(\eps/D)\,s_0\bigl(A-\min_{a\in I}o_a\bigr)^+$ (and $d(x)=0$ if also $s_0=0$).
+In general $d(x)\le(\eps/D)\bigl(s_0\,(A-V(k))+s_m\,(V(k)-M)\bigr)$.
+\end{lemma}
+
+\begin{proof}
+Write $P'(y)=(1+\eps\sigma_y)/(2D)$ with $\sigma_y\in[-1,1]$ and $\sum_y\sigma_y=0$. The maximum of the linear function
+$\sum_y\sigma_yV(y)$ over this polytope is attained at $\sigma=+1$ on $D$ neighbours with the largest values and $-1$ on
+the rest. Group the $2D$ neighbour values into $D$ pairs, one per coordinate: $(o_a,w_a)$ for $a\in I$, $(A,A)$ for
+$a\in S_0$, $(M,M)$ for $a\in S_m$. Let $F$ be the multiset of first entries and $S$ that of second entries. Then $Q$
+corresponds to $\sigma=+1$ on $F$ and $-1$ on $S$ (for the equal pairs this changes nothing), so with
+$\Sigma_{\mathrm{top}}$ the sum of the $D$ largest values,
+\[
+d(x)=\frac{\eps}{2D}\Bigl(2\Sigma_{\mathrm{top}}-\textstyle\sum F-\sum S\Bigr)-\frac{\eps}{2D}\Bigl(\sum F-\sum S\Bigr)
+=\frac{\eps}{D}\Bigl(\Sigma_{\mathrm{top}}-\textstyle\sum F\Bigr).
+\]
+Order $S$ decreasingly, $s_{(1)}\ge s_{(2)}\ge\cdots$, and $F$ increasingly, $f_{(1)}\le f_{(2)}\le\cdots$. A set of
+$D$ largest values contains the $r$ largest elements of $S$ and misses the $r$ smallest of $F$ for some $r$, so
+$\Sigma_{\mathrm{top}}-\sum F=\sum_{i\le r}(s_{(i)}-f_{(i)})\le\sum_i(s_{(i)}-f_{(i)})^+$. By~\eqref{eq:order} a
+positive term has $s_{(i)}=A$ or $f_{(i)}=M$: the remaining elements of $S$ are $\le V(k)$ and those of $F$ are
+$\ge V(k)$. There are at most $s_0$ terms with $s_{(i)}=A$ and at most $s_m$ with $f_{(i)}=M$. If $S_m=\emptyset$, each
+positive term is $A-o_a$ for some $a$, which gives the first bound. In general a term $A-o_a$ is at most $A-V(k)$, a
+term $w_a-M$ at most $V(k)-M$, and a term $A-M$ equals $(A-V(k))+(V(k)-M)$, which gives the second.
+\end{proof}
+
+So Theorem~\ref{thm:main} follows from two estimates, proved in Sections~\ref{sec:deficit} and~\ref{sec:value}:
+\begin{itemize}
+\item[(a)] $\bar d=O((\log L)^{D/2}/L)$;
+\item[(b)] $L^{-D}\max_xV(x)\to G_D((e^c-1)/c)^D$.
+\end{itemize}
+The case $c=0$ of (b), where $Q$ is the simple random walk, gives $\thit=G_DL^D(1+o(1))$, and the theorem follows from
+Lemma~\ref{lem:reduction}.
+
+\section{The folded chain}\label{sec:folded}
+
+Let $X$ be the continuous-time chain on $\{0,\dots,m\}$ that jumps from $0$ to $1$ at rate $1$, from $m$ to $m-1$ at
+rate $1$, and from $1\le k\le m-1$ to $k+1$ at rate $\alpha=(1+\eps)/2$ and to $k-1$ at rate $\beta=(1-\eps)/2$. Write
+$p_s(j,k)=P_j(X_s=k)$ and $\pi$ for its stationary law. In continuous time with jump rate one, the walk $\xi$ under $Q$ has
+folded coordinates $X^{(1)}_{t/D},\dots,X^{(D)}_{t/D}$ with $X^{(a)}$ independent copies of $X$, and the expected
+hitting time of $0$ is the same as for the discrete-time walk, since the jump chains agree. Thus
+\begin{equation}\label{eq:product}
+P^Q_x(\xi_t=0)=\prod_{a=1}^Dp_{t/D}(k_a,0),\qquad \pi_Q(0)=\pi(0)^D,
+\end{equation}
+where $\pi_Q$ is the stationary law of $Q$ on $\Z_L^D$. Write $\hat p_s(j)=p_s(j,0)/\pi(0)$.
+
+The chain is reversible, with $\pi(k)=\pi(0)\,\beta^{-1}(\alpha/\beta)^{k-1}$ for $1\le k\le m-1$ and $\pi(m)=\alpha\,\pi(m-1)$. With
+$\eps=c/L$ we have $(\alpha/\beta)^m\to e^{c}$, so
+\begin{equation}\label{eq:pi0}
+\pi(0)^{-1}=1+\frac1\beta\sum_{k=1}^{m-1}\Bigl(\frac\alpha\beta\Bigr)^{k-1}+O(1)=L\,\frac{e^c-1}{c}\,(1+o(1)),
+\end{equation}
+and $\pi(k)/\pi(0)\in[C^{-1},C]$ for all $k$, with $C$ depending only on $c$. From here on $C,C',c'$ denote
+constants that depend only on $c$ and $D$, possibly different at each occurrence; the threshold $C$ of
+Corollary~\ref{cor:rho} plays no further role.
+
+\begin{lemma}\label{lem:folded}
+\begin{enumerate}
+\item[(i)] For each $s$, $j\mapsto p_s(j,0)$ is nonincreasing.
+\item[(ii)] $s\mapsto p_s(0,0)$ is nonincreasing and $s\mapsto p_s(m,0)$ is nondecreasing; $\partial_sp_s(0,0)=p_s(1,0)-p_s(0,0)$ and $\partial_sp_s(m,0)=p_s(m-1,0)-p_s(m,0)$.
+\item[(iii)] $V(k+e_a)\ge V(k)$ whenever $k_a<m$.
+\item[(iv)] $V(k)=D\int_0^\infty\bigl(\prod_a\hat p_s(0)-\prod_a\hat p_s(k_a)\bigr)\,ds$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Two copies of $X$ started at $j<j'$ and run independently until they meet, and together afterwards, stay ordered,
+because nearest-neighbour jumps of independent chains in continuous time do not occur simultaneously. This gives (i),
+and also (iii): coupling coordinate $a$ from $k_a$ and $k_a+1$ in this way and the other coordinates identically, the
+upper copy is at $0$ only when the lower one is, so the first time all coordinates are at $0$ is pathwise later from
+$k+e_a$. For (ii), the formulas are the backward equations at $0$ and $m$; $p_s(0,0)/\pi(0)=\sum_i\varphi_i(0)^2e^{-\lambda_is}$
+in an orthonormal eigenbasis of $L^2(\pi)$ is nonincreasing; and $X$ started at $m$ is stochastically nonincreasing in
+time by the same coupling (compare the chain from $m$ with the chain from $X_r\le m$), so $P_m(X_s=0)$ is
+nondecreasing. For (iv) let $\mathcal L$ be the generator of the product chain and
+$Z(k)=\int_0^\infty(q_t(k)-\pi_Q(0))\,dt$ with $q_t(k)=\prod_ap_{t/D}(k_a,0)$; the integral converges because the product chain is finite and
+irreducible, so $q_t(k)\to\pi_Q(0)$ exponentially fast. By the backward equation, $\mathcal LZ(k)=\int_0^\infty\partial_tq_t(k)\,dt=\pi_Q(0)-\mathbf
+1\{k=0\}$, where $\mathbf 1$ denotes the indicator, so $W=(Z(0)-Z(\cdot))/\pi_Q(0)$ satisfies $\mathcal LW=-1$ off $0$ and $W(0)=0$. On a finite irreducible
+chain this determines $W=V$. Substituting $t=Ds$ and~\eqref{eq:product} gives (iv).
+\end{proof}
+
+We need an exit bound and three kernel bounds for $X$.
+
+\begin{lemma}\label{lem:exit}
+For every $x$, $s>0$ and $r>0$ with $\eps s\le r/4$, $P_x\bigl(\sup_{u\le s}|X_u-x|\ge r\bigr)\le2\exp\bigl(-r^2/(5(s+r))\bigr)$.
+\end{lemma}
+
+\begin{proof}
+Let $f(z)=\cosh(\theta(z-x))$ with $0<\theta\le1$. At an interior $z$,
+$\alpha f(z+1)+\beta f(z-1)-f(z)=f(z)(\cosh\theta-1)+\eps\sinh(\theta(z-x))\sinh\theta\le\psi f(z)$ with
+$\psi=\cosh\theta-1+\eps\sinh\theta$. At $z=0$ the increment is $f(1)-f(0)$, which is $\le0$ if $x\ge1$ and equals
+$(\cosh\theta-1)f(0)$ if $x=0$; the same holds at $z=m$. So $e^{-\psi u}f(X_u)$ is a supermartingale. At the first time
+$\tau$ with $|X_\tau-x|\ge r$ we have $f(X_\tau)\ge\cosh(\theta r)$, and optional stopping at $\tau\wedge s$ gives
+$P(\tau\le s)\le2\exp(\psi s-\theta r)$. Since $\cosh\theta-1\le0.55\,\theta^2$ and $\sinh\theta\le1.18\,\theta$ for
+$\theta\le1$, and $\eps s\le r/4$, we get $\psi s-\theta r\le0.55\,\theta^2s-0.7\,\theta r$. Take $\theta=r/(2s)$ if
+$r\le2s$ and $\theta=1$ otherwise; in both cases the exponent is at most $-r^2/(5(s+r))$.
+\end{proof}
+
+\begin{lemma}\label{lem:kernel}
+Let $\eps=c/L$ and $\mathcal S(s)=\max_x p_s(x,x)/\pi(x)$.
+\begin{enumerate}
+\item[(a)] $\pi(0)\,\mathcal S(s)\le C\bigl(1\wedge s^{-1/2}+L^{-1}\bigr)$; hence $\hat p_s(j)\le\mathcal S(s)\le C(L(1\wedge s^{-1/2})+1)$.
+\item[(b)] $\hat p_s(j)\le\mathcal S(s/2)\bigl(P_j(X_{s/2}\le j/2)+P_0(X_{s/2}>j/2)\bigr)$; so if $\eps s\le j/4$, then
+$\hat p_s(j)\le C(L(1\wedge s^{-1/2})+1)\exp\bigl(-j^2/(10(s+j))\bigr)$.
+\item[(c)] $|\hat p_s(j)-1|\le Ce^{-(s-L^2)/(CL^2)}$ for $s\ge L^2$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The chain $X$ is the cycle distance $\min(Y,L-Y)$ of the chain $Y$ on $\Z_L$ that steps away from $0$ at rate
+$\alpha$ and toward $0$ at rate $\beta$, and from $0$ and from $L/2$ to each neighbour at rate $1/2$. Let $\tilde Y$
+be its periodic lift to $\Z$ and $\tilde P$ the jump matrix of $\tilde Y$. With $r=\alpha/\beta$, the lazy matrix $(I+\tilde P)/2$ is
+reversible with respect to the periodic measure $\tilde m$ given on one period by $\tilde m(0)=1$,
+$\tilde m(i)=\tilde m(L-i)=r^{i-1}/(1-\eps)$ for $1\le i\le m-1$ and $\tilde m(m)=r^{m-1}$; the detailed-balance
+equations $\tilde m(0)/2=\tilde m(1)\beta$, $\tilde m(i)\alpha=\tilde m(i+1)\beta$ and $\tilde m(m-1)\alpha=\tilde m(m)/2$
+hold, and the other half of the period is their reflection. For $\eps\le1/2$ we have $\log r\le4\eps$,
+so $1\le\tilde m\le e^{2c}$; the entries of $(I+\tilde P)/2$ are at least $1/8$ on edges and equal to $1/2$ on loops, so the
+edge and loop weights $\tilde m(x)(I+\tilde P)(x,y)/2$ lie in $[1/8,e^{2c}]$. Balls in $\Z$ are intervals, so volume
+doubling holds with constant $3e^{2c}$, and writing each difference $f(z)-f(x)$ as a sum along the interval and
+applying the Cauchy--Schwarz inequality gives the Poincar\'e inequality on balls of radius $\rho$ with constant
+$48e^{2c}\rho^2$. These are the hypotheses of Delmotte~\cite{Del99}, with constants depending only on $c$. Then \cite[Theorem~1.7]{Del99} gives
+$((I+\tilde P)/2)^n(x,y)\le Cn^{-1/2}e^{-(x-y)^2/(Cn)}$ for $n\ge1$. Since
+$p_s=\sum_ne^{-2s}(2s)^n/n!\,((I+P)/2)^n$ with $P$ the jump matrix of $X$, and $X_s=j$ means that $\tilde Y_s$ lies in
+one of at most two residue classes mod $L$, summing over the images $y+zL$ gives $p_s(x,y)\le C\,\E[(1\wedge
+N^{-1/2})+L^{-1}]$ with $N$ a Poisson variable of mean $2s$, which is at most $C(1\wedge s^{-1/2}+L^{-1})$. Together
+with $\pi(y)\ge\pi(0)/C$ this gives (a). For the second part, by Cauchy--Schwarz in the eigenbasis,
+$p_s(x,y)/\pi(y)\le\bigl(p_s(x,x)p_s(y,y)/(\pi(x)\pi(y))\bigr)^{1/2}\le\mathcal S(s)$.
+(b) Split $p_s(j,0)=\sum_yp_{s/2}(j,y)p_{s/2}(y,0)$ at $y=j/2$. For $y\le j/2$ use $p_{s/2}(y,0)\le\pi(0)\mathcal
+S(s/2)$; for $y>j/2$ use $p_{s/2}(j,y)\le\pi(y)\mathcal S(s/2)$ and $\pi(y)p_{s/2}(y,0)=\pi(0)p_{s/2}(0,y)$. The second
+statement follows from Lemma~\ref{lem:exit} with $r=j/2$ and time $s/2$.
+(c) The spectral gap $\lambda_1$ of $X$ is at least $1/(CL^2)$: the Dirichlet form and the variance change by
+bounded factors under the comparison in (a), and the plain path has gap of order $m^{-2}$. In the eigenbasis,
+$|\hat p_s(j)-1|\le\bigl((p_s(j,j)/\pi(j)-1)(p_s(0,0)/\pi(0)-1)\bigr)^{1/2}$ and
+$p_s(x,x)/\pi(x)-1\le e^{-\lambda_1(s-L^2)}(\mathcal S(L^2)-1)$, which is at most $Ce^{-\lambda_1(s-L^2)}$ by (a).
+\end{proof}
+
+\section{A product inequality on the half-line}\label{sec:halfline}
+
+In this section only, fix $\eps\in[0,1)$, put $\alpha=(1+\eps)/2$, $\beta=(1-\eps)/2$, and let $X^\infty$ be the
+continuous-time chain on $\N=\{0,1,2,\dots\}$ that jumps from $0$ to $1$ at rate $1$ and, from $x\ge1$, to $x+1$ at
+rate $\alpha$ and to $x-1$ at rate $\beta$. Write $f_t(x)=P_x(X^\infty_t=0)$.
+
+\begin{lemma}\label{lem:halfline}
+For all $t>0$ and $j\ge1$,
+\[
+  f_t(1)\,f_t(j)\ \ge\ f_t(0)\,f_t(j+1).
+\]
+\end{lemma}
+
+For $\eps=0$ the chain is $|S|$ for the continuous-time simple random walk $S$ on $\Z$, so $f_t(j)=e^{-t}I_j(t)$ with
+$I_j$ the modified Bessel functions, and the lemma says $I_{j+1}(t)/I_j(t)\le I_1(t)/I_0(t)$. This case is classical: it follows by chaining the
+Tur\'an-type inequality $I_\nu(t)^2\ge I_{\nu-1}(t)I_{\nu+1}(t)$ over $\nu=1,\dots,j$; see~\cite{BP} for this inequality
+and its history. Lemma~\ref{lem:halfline} extends it to $\eps>0$.
+
+\begin{proof}[Proof of Lemma~\ref{lem:halfline}]
+\emph{The pair chain.} Run two copies of $X^\infty$ from $j$ and $j+1$ as follows. While they differ they occupy
+$(y,y+1)$; both move up at rate $\alpha$ and both move down at rate $\beta$ when $y\ge1$; when $y=0$ both move up at rate $\alpha$,
+the lower one alone moves up at rate $\beta$ and the upper one alone moves down at rate $\beta$. Each copy has the law of
+$X^\infty$, the copies stay ordered, and they move together once they meet. Hence
+\[
+  k_t(j):=f_t(j)-f_t(j+1)=P(\text{lower copy at }0\text{ at time }t,\ \text{copies not yet met}).
+\]
+The lower copy before the meeting is the chain $\tilde X$ on $\N$ with the interior rates of $X^\infty$, rate $\alpha$ from $0$ to
+$1$, and killing at rate $2\beta$ at $0$; so $k_t(j)=P_j(\tilde X_t=0)$. Both $f$ and $k$ solve the backward equations of their
+chains, $f_t,k_t>0$, and $0\le k_t\le f_t$.
+
+\emph{The equation for the ratio.} Let $h_t=k_t/f_t\in[0,1]$. The two generators agree at $x\ge1$, and substituting
+$k=hf$ gives
+\begin{align*}
+  \partial_t h_t(x)&=\alpha\frac{f_t(x+1)}{f_t(x)}\bigl(h_t(x+1)-h_t(x)\bigr)+\beta\frac{f_t(x-1)}{f_t(x)}\bigl(h_t(x-1)-h_t(x)\bigr),
+  \qquad x\ge1,\\
+  \partial_t h_t(0)&=\alpha\frac{f_t(1)}{f_t(0)}\bigl(h_t(1)-h_t(0)\bigr)-\kappa_t\,h_t(0),\qquad
+  \kappa_t=\beta\Bigl(1+\frac{f_t(1)}{f_t(0)}\Bigr).
+\end{align*}
+There is no potential away from $0$. Fix $0<\eta<t$. For $s\in[0,t-\eta]$ let $\zeta$ be the time-inhomogeneous
+nearest-neighbour chain that at time $s$ jumps up at rate $\alpha f_{t-s}(x+1)/f_{t-s}(x)\le\alpha$ and down at rate
+$\beta f_{t-s}(x-1)/f_{t-s}(x)$ (here $f_{t-s}(x+1)\le f_{t-s}(x)$ by the monotone coupling). Its upward rates are bounded
+and a downward jump cannot be repeated more than $x$ times from $x$, so $\zeta$ does not explode, and the number of its
+upward jumps on $[0,t-\eta]$ is dominated by a Poisson variable of mean $\alpha t$. The process
+$M_s=\exp\bigl(-\int_0^s\kappa_{t-r}\mathbf{1}\{\zeta_r=0\}\,dr\bigr)\,h_{t-s}(\zeta_s)$ is a bounded martingale, so
+\[
+  h_t(x)=\E_x\Bigl[\exp\Bigl(-\int_0^{t-\eta}\kappa_{t-r}\mathbf{1}\{\zeta_r=0\}\,dr\Bigr)\,h_\eta(\zeta_{t-\eta})\Bigr].
+\]
+
+\emph{Coupling.} Run $\zeta$ from $0$ and from $x$ independently until they meet and together afterwards. Then
+$\zeta^0_s\le \zeta^x_s$ for all $s$; in particular $\zeta^x_s=0$ forces $\zeta^0_s=0$, so the killing weights satisfy $S^x\ge S^0$
+pathwise, where $S^y$ denotes the exponential factor above for the copy started at $y$. Since $h_\eta\ge0$ and
+$S^0\le1$, for every $N$,
+\[
+  h_t(x)-h_t(0)\ \ge\ \E\bigl[S^0\bigl(h_\eta(\zeta^x_{t-\eta})-h_\eta(\zeta^0_{t-\eta})\bigr)\bigr]
+  \ \ge\ -2\max_{y\le N}|1-h_\eta(y)|-2P\bigl(\mathrm{Poisson}(\alpha t)>N-x\bigr).
+\]
+For fixed $y$, both $f_\eta(y)$ and $k_\eta(y)$ equal $(\beta\eta)^y/y!\,(1+O(\eta))$ as $\eta\to0$ (the only paths of
+order $\eta^y$ are the $y$ straight downward steps, at rate $\beta$ in both chains), so $h_\eta(y)\to1$. Letting
+$\eta\to0$ and then $N\to\infty$ gives $h_t(x)\ge h_t(0)$.
+
+\emph{Conclusion.} $h_t(j)\ge h_t(0)$ reads $\bigl(f_t(j)-f_t(j+1)\bigr)f_t(0)\ge\bigl(f_t(0)-f_t(1)\bigr)f_t(j)$,
+which is the claim.
+\end{proof}
+
+On the folded chain $X$ the same computation produces a second killing site, at $m-1$, with rate
+$\alpha\bigl(1+p_t(m,0)/p_t(m-1,0)\bigr)$, and we do not use the inequality of Lemma~\ref{lem:halfline} for $X$
+itself. Lemma~\ref{lem:Aprime} uses Lemma~\ref{lem:halfline} only at times
+$t\le t_0=L^2/(K\log L)$, with the constant $K$ fixed in its proof, and for starts $j\le m/2$, where $X$ and $X^\infty$ coincide up to an event of small
+probability; the case $j>m/2$ does not use it.
+
+\section{The deficit}\label{sec:deficit}
+
+Throughout, $\eps=c/L$. By Lemma~\ref{lem:folded}(iv), for any two sites $y,y'$,
+\begin{equation}\label{eq:diff}
+V(y)-V(y')=D\int_0^\infty\Bigl(\prod_a\hat p_s(y'_a)-\prod_a\hat p_s(y_a)\Bigr)\,ds .
+\end{equation}
+
+\begin{lemma}\label{lem:Aprime}
+There is $C$ such that $V(k+e_a)-V(k+e_i)\le C(\log L)^{D/2}$ whenever $k_a=0$ and $1\le k_i\le m-1$.
+\end{lemma}
+
+\begin{proof}
+Let $j=k_i$, $R(s)=\prod_{a'\ne a,i}\hat p_s(k_{a'})$, and
+$\Gamma(s)=\hat p_s(1)\hat p_s(j)-\hat p_s(0)\hat p_s(j+1)$. By~\eqref{eq:diff},
+$V(k+e_a)-V(k+e_i)=D\int_0^\infty R(s)(-\Gamma(s))\,ds\le D\int_0^\infty R(s)\Gamma(s)^-\,ds$. By
+Lemma~\ref{lem:folded}(i), $0\le R(s)\le\hat p_s(0)^{D-2}$. Put $t_0=L^2/(K\log L)$ with $K$ chosen below.
+
+\emph{Large times.} Since $\hat p_s(j+1)\le\hat p_s(j)\le\hat p_s(0)$ and $\hat p_s(0)-\hat p_s(1)=-\partial_s\hat p_s(0)$
+(Lemma~\ref{lem:folded}(ii)),
+\[
+\Gamma(s)^-\le\hat p_s(j)\bigl(\hat p_s(0)-\hat p_s(1)\bigr)\le-\hat p_s(0)\,\partial_s\hat p_s(0).
+\]
+Hence, as $\hat p_s(0)\to1$,
+\[
+D\int_{t_0}^\infty R\Gamma^-\,ds\le-D\int_{t_0}^\infty\hat p_s(0)^{D-1}\partial_s\hat p_s(0)\,ds=\hat p_{t_0}(0)^D-1\le
+C(K\log L)^{D/2}
+\]
+by Lemma~\ref{lem:kernel}(a).
+
+\emph{Small times.} Let $X^\infty$ be the half-line chain of Section~\ref{sec:halfline} with the same $\eps$, coupled
+with $X$ from the same start so that the two agree up to the hitting time $T_m$ of $m$. For $y\le j+1$,
+$|p_s(y,0)-P_y(X^\infty_s=0)|\le P_y(T_m\le s)\le P_{j+1}(T_m\le s)$, the last step by the monotone coupling.
+
+If $j\le m/2$, then $m-j-1\ge L/5$ for large $L$, and for $s\le t_0$ Lemma~\ref{lem:exit} (with $r=L/5$, which for large $L$ satisfies $r\le t_0$ and $\eps t_0\le r/4$,
+so that $5(s+r)\le10t_0$) gives $P_{j+1}(T_m\le s)\le2\exp(-L^2/(250\,t_0))=2L^{-K/250}=:\eta_L$. Each of $p_s(0,0)$,
+$p_s(1,0)$, $p_s(j,0)$, $p_s(j+1,0)$ lies in $[0,1]$ and is within $\eta_L$ of its half-line counterpart, and the
+same bracket with $P_y(X^\infty_s=0)$ in place of $p_s(y,0)$ is nonnegative by Lemma~\ref{lem:halfline}, so $\pi(0)^2\Gamma(s)^-\le4\eta_L$.
+
+If $j>m/2$, then $\pi(0)^2\Gamma(s)^-\le p_s(j+1,0)\le P_{j+1}(\sup_{u\le s}|X_u-X_0|\ge j+1)\le\eta_L$ in the same way.
+
+In both cases $R(s)\Gamma(s)^-\le(CL)^{D-2}\cdot4\eta_L\,(CL)^2$ for $s\le t_0$, by Lemma~\ref{lem:kernel}(a) and
+$\pi(0)^{-1}\le CL$. So $D\int_0^{t_0}R\Gamma^-\,ds\le C'L^{D+2}L^{-K/250}\le1$ once $K=250(D+3)$ and $L$ is large.
+\end{proof}
+
+\begin{lemma}\label{lem:B}
+There is $C$ such that for every $k$ with $k_i=m$ for some $i$:
+\begin{enumerate}
+\item[(i)] $V(k)-V(k-e_i)\le C$;
+\item[(ii)] $V(k+e_a)-V(k)\le C$ for every $a$ with $k_a=0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) By~\eqref{eq:diff} and Lemma~\ref{lem:folded}(ii),
+$V(k)-V(k-e_i)=D\int_0^\infty R_i(s)\,\partial_s\hat p_s(m)\,ds$ with $R_i(s)=\prod_{a\ne i}\hat p_s(k_a)\le\hat
+p_s(0)^{D-1}$, and $\partial_s\hat p_s(m)\ge0$. On $[L^2,\infty)$, $R_i\le C$ by Lemma~\ref{lem:kernel}(a) and
+$\int_{L^2}^\infty\partial_s\hat p_s(m)\,ds\le1$. Let $s_1=L^2/(8c+8)$. On $[s_1,L^2]$ we have
+$R_i\le\hat p_{s_1}(0)^{D-1}\le C$ and $\int_{s_1}^{L^2}\partial_s\hat p_s(m)\,ds\le\hat p_{L^2}(m)\le C$. For $s\le
+s_1$ we use that $s\mapsto\hat p_s(m)$ is nondecreasing with $\hat p_0(m)=0$, and that Lemma~\ref{lem:kernel}(b) with
+$j=m$ applies at every $s\le s_1$ (since $\eps s_1\le m/4$) and gives
+\begin{equation}\label{eq:pm}
+\hat p_s(m)\le C\bigl(L(1\wedge s^{-1/2})+1\bigr)\exp\Bigl(-\frac{L^2}{C(s+L)}\Bigr),\qquad s\le s_1.
+\end{equation}
+On $(0,L]$, $R_i\le(CL)^{D-1}$ and $\int_0^L\partial_s\hat p_s(m)\,ds=\hat p_L(m)\le CLe^{-L/(2C)}$, so this range
+contributes at most $(CL)^De^{-L/(2C)}$. Cover $[L,s_1]$ by the blocks $[U,2U]$, $U=2^{-r}s_1\ge L/2$, $r\ge1$. On such a block $R_i\le(C L/\sqrt U)^{D-1}$ and the
+integral of $\partial_s\hat p_s(m)$ is at most $\hat p_{2U}(m)$, so
+\[
+\int_U^{2U}R_i\,\partial_s\hat p_s(m)\,ds\le\Bigl(\frac{C'L^2}{U}\Bigr)^{D/2}\exp\Bigl(-\frac{L^2}{4CU}\Bigr).
+\]
+Over these blocks the ratio $L^2/U$ grows geometrically from at least $8c+8$, so
+the sum is bounded uniformly in $L$.
+
+(ii) Similarly $V(k+e_a)-V(k)=D\int_0^\infty R_a(s)\bigl(-\partial_s\hat p_s(0)\bigr)\,ds$ with
+$R_a(s)=\prod_{a'\ne a}\hat p_s(k_{a'})$, a product that contains the factor $\hat p_s(m)$ from coordinate $i$, and
+$-\partial_s\hat p_s(0)\ge0$. On $[s_1,\infty)$, $R_a\le C$ and $\int_{s_1}^\infty(-\partial_s\hat p_s(0))\,ds\le\hat
+p_{s_1}(0)\le C$. On $(0,L]$, $\hat p_s(m)\le\hat p_L(m)\le CLe^{-L/(2C)}$, the other $D-2$ factors of $R_a$ are at most
+$CL$, and $\int_0^L(-\partial_s\hat p_s(0))\,ds\le\hat p_0(0)=\pi(0)^{-1}\le CL$, so this range contributes at most
+$(CL)^De^{-L/(2C)}$. On each block $[U,2U]$ of (i), $\int_U^{2U}(-\partial_s\hat p_s(0))\,ds\le\hat p_U(0)\le
+CL/\sqrt U$, $\hat p_s(m)\le\hat p_{2U}(m)$, and the other factors are at most $CL/\sqrt U$, which gives the block bound
+of (i) and the same summation.
+\end{proof}
+
+\begin{proposition}\label{prop:deficit}
+$\bar d=\max_{x\ne0}d(x)\le C(\log L)^{D/2}/L$.
+\end{proposition}
+
+\begin{proof}
+If $S_m=\emptyset$, Lemma~\ref{lem:deficit} and Lemma~\ref{lem:Aprime} (applied with each $i\in I$) give
+$d(x)\le(c/L)\,C(\log L)^{D/2}$ (if $I=\emptyset$ too, then $x=0$). If $S_m\ne\emptyset$, the second
+bound of Lemma~\ref{lem:deficit} and Lemma~\ref{lem:B} give $d(x)\le(c/L)\,2C$.
+\end{proof}
+
+\section{The maximum expected hitting time under the product adversary}\label{sec:value}
+
+\begin{proposition}\label{prop:value}
+$L^{-D}\max_xV(x)\to G_D\bigl((e^c-1)/c\bigr)^D$ as $L\to\infty$, for every fixed $c\ge0$, with $(e^c-1)/c=1$ at $c=0$.
+\end{proposition}
+
+\begin{proof}
+Let $q_t$ and $Z$ be as in the proof of Lemma~\ref{lem:folded}(iv), read as functions of $x$ through $k(x)$, so that
+$q_t(x)=P^Q_x(\xi_t=0)$ by~\eqref{eq:product}, $V(x)=(Z(0)-Z(x))/\pi_Q(0)$ and $\max_xV=(Z(0)-\min_xZ(x))/\pi_Q(0)$. By~\eqref{eq:pi0},
+$\pi_Q(0)L^D\to(c/(e^c-1))^D$, so it suffices to show $\min_xZ(x)\to0$ and $Z(0)\to G_D$.
+
+\emph{The minimum.} Stationarity gives $\sum_x\pi_Q(x)Z(x)=0$, so $\min_xZ(x)\le0$. By~\eqref{eq:product} and
+Lemma~\ref{lem:kernel}(c), $|q_t(x)-\pi_Q(0)|\le C\pi_Q(0)e^{-(t/D-L^2)/(CL^2)}$ for $t\ge2DL^2$, so
+$Z(x)\ge-2DL^2\pi_Q(0)-CL^2\pi_Q(0)=-O(L^{2-D})$.
+
+\emph{The value at $0$.} Let $q^\infty_t=P_0(S_t=0)$ for the continuous-time simple random walk $S$ on $\Z^D$ with jump
+rate one, so that $\int_0^\infty q^\infty_t\,dt=G_D$. For fixed $t$, $q_t(0)\to q^\infty_t$: run $\xi$ and $S$ with the same
+jump times and couple each jump direction maximally. The two laws of a jump differ by at most $\eps/2$ in total
+variation, and as long as every coordinate of $S$ stays below $m$ in absolute value, $\xi_t=0$ if and only if $S_t=0$.
+Hence $|q_t(0)-q^\infty_t|\le\eps t/2+P(N_t\ge m)$ with $N_t$ a Poisson variable of mean $t$, which tends to $0$. For
+$t\le L^2$, Lemma~\ref{lem:kernel}(a) and~\eqref{eq:product} give
+$q_t(0)=p_{t/D}(0,0)^D\le\bigl(C(1\wedge(t/D)^{-1/2}+L^{-1})\bigr)^D\le C'(1\wedge t^{-1/2})^D$, since $L^{-1}\le1\wedge(t/D)^{-1/2}$
+there. The bound is integrable on $(0,\infty)$ because $D\ge3$, so by dominated convergence
+$\int_0^{L^2}q_t(0)\,dt\to G_D$. On $[L^2,2DL^2]$ the same bound gives $q_t(0)\le CL^{-D}$, the range $t\ge2DL^2$
+contributes $O(L^{2-D})$ as in the previous paragraph, and $\int_0^{2DL^2}\pi_Q(0)\,dt=O(L^{2-D})$. Hence
+$Z(0)=\int_0^{L^2}q_t(0)\,dt+O(L^{2-D})\to G_D$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+By Proposition~\ref{prop:deficit}, $\bar d=O((\log L)^{D/2}/L)<1$ for large $L$, so Lemma~\ref{lem:reduction} gives
+$\thit^+(c/L)=\max_xV(x)\,(1+O((\log L)^{D/2}/L))$. Proposition~\ref{prop:value} for $c$ and for $c=0$ gives
+$L^{-D}\max_xV(x)\to G_D((e^c-1)/c)^D$ and $L^{-D}\thit\to G_D$, and the ratio of the two limits is $((e^c-1)/c)^D$.
+\end{proof}
+
+\section{Numerical values for $D=2$ and $D=3$}\label{sec:checks}
+
+The exact value of $\thit^+(\eps)$ on a finite torus is the solution of a Markov decision problem: by
+the argument of Lemma~\ref{lem:reduction}, applied to the solution $V^*$ of $V^*=1+BV^*$ off the target (with
+$V^*(0)=0$), the history-independent adversary that attains the maximum in $BV^*$ at every site attains
+$\thit^+(\eps)$. We computed $V^*$ by policy iteration on $\Z_L^2$ for $L\le128$, and $\max_xV_Q(x)$ on $\Z_L^3$ for
+$L\le40$. For $D=2$ and $\eps=1/L$ the results are as follows.
+\begin{center}
+\begin{tabular}{rccccc}
+\toprule
+$L$ & 8 & 16 & 32 & 64 & 128\\ \midrule
+$\thit$ & 111.9 & 558.8 & 2685.5 & 12547.9 & 57419.8\\
+$\thit^+(1/L)/\thit$ & 2.0804 & 2.2674 & 2.3975 & 2.4860 & 2.5489\\ \bottomrule
+\end{tabular}
+\end{center}
+The differences from $(e-1)^2=2.9525$, multiplied by $\log L$, are $1.81,1.90,1.92,1.94,1.96$, still increasing at
+$L=128$; Theorem~\ref{thm:main} does not cover $D=2$, where $G_2=\infty$ and
+$\thit$ is of order $L^2\log L$. For $D=3$ and $c=1$, $L\,(5.0732-\max_xV_Q(x)/\thit)$ equals $18.27,20.22,21.60,22.67$ at
+$L=16,24,32,40$, consistent with a correction of order $(\log L)/L$; here $5.0732=(e-1)^3$. The deficit $\bar d$ of
+Section~\ref{sec:reduction} computed numerically is $0.414$ and $0.266$ at $L=16,24$ ($D=3$, $c=1$), attained at sites
+with one coordinate equal to $m$ and the others $0$. The code is in the repository~\cite{Code}.
+
+On the box $\{1,\dots,L\}^D$ the walk is not transitive and not regular at the boundary, and the order of $\rhit$
+there is open.
+
+\section*{Acknowledgements and funding}
+This work was done by AI agents, Claude (Anthropic), connected to Math Brain and working inside the Brain framework, a
+shared, persistent memory in which many agents, Claude and Codex (OpenAI), record claims, proofs, failed attempts
+and methods, retrieve one another's results, coordinate who works on what, and audit each other's work. For more on the Brain and Math Brain,
+see the Math Brain paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework
+repository~\cite{BrainFramework}.
+
+The research presented in this paper was supported by the European Research Council (ERC) under the European Union's
+Horizon Europe research and innovation programme (grant agreement No.~101041711), by the Simons Foundation as part of
+the Collaboration on the Mathematical and Scientific Foundations of Deep Learning, by Heights Labs, by Convex Nexus
+Capital, by the Israel Science Foundation (grant number 2258/19), and by the Israel Science Foundation (ISF Grant
+4101/25).
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and has a management role at Convex Nexus Capital.
+These entities are included in the funding declaration above.
+
+\section*{Data availability}
+The programs described in Section~\ref{sec:checks} are in the repository~\cite{Code}.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+This paper is part of a broader research project on AI proving problems. Claude agents (Anthropic) proved
+Theorem~\ref{thm:main}, wrote the code of Section~\ref{sec:checks} and prepared the manuscript, and a separate
+Claude model reviewed the proofs and proposed the estimates of Section~\ref{sec:deficit}. The model, the
+definitions and the question are due to Zuckerman~\cite{Zuc26}, the upper bound $\rhit=O(1/L)$ follows from the
+adversary constructed in the proof of his Theorem~4.5, and the on-diagonal heat-kernel bound of
+Lemma~\ref{lem:kernel}(a) rests on Delmotte's Gaussian estimates~\cite{Del99}; the case $\eps=0$ of Lemma~\ref{lem:halfline} is a Tur\'an-type
+inequality for modified Bessel functions~\cite{BP}; Lemma~\ref{lem:reduction} is a standard supermartingale comparison. The author directed the work and is responsible
+for the content of the paper and for decisions concerning its dissemination.
+
+\appendix
+\section{Notation}\label{app:notation}
+\begin{center}
+\begin{tabular}{@{}lp{0.5\textwidth}l@{}}
+\toprule
+Symbol & Meaning & Where\\ \midrule
+$G$, $P$ & a connected graph and its simple random walk & Section~\ref{sec:intro}\\
+$\eps$, $c$ & adversary strength, $\eps=c/L$ & Section~\ref{sec:intro}\\
+$\thit$, $\thit^+(\eps)$ & maximum expected hitting time, plain and under standard $\eps$-adversaries & Section~\ref{sec:intro}\\
+$\rhit(C)$ & hitting-time robustness at threshold $C$ & Section~\ref{sec:intro}\\
+$H_v$, $h^+(u,v)$ & hitting time of $v$; its supremum expectation from $u$ over standard adversaries & Section~\ref{sec:intro}\\
+$\Delta$, $\bar\Delta$, $t_{\mathrm{mix}}$ & diameter, average distance, mixing time & Section~\ref{sec:intro}\\
+$L$, $D$, $m$ & side, dimension, $m=L/2$ & Section~\ref{sec:intro}\\
+$k=(k_a)$ & folded coordinates, $k_a=\min(x_a,L-x_a)$; $e_a$ the $a$-th unit vector & Section~\ref{sec:intro}\\
+$Q$, $V=V_Q$ & the product adversary and $V(x)=\E^Q_xH_0$ & Section~\ref{sec:intro}\\
+$G_D$, $r_D(C)$ & Green constant of $\Z^D$ at $0$; the limit of $L\rhit(C)$ & Theorem~\ref{thm:main}, Corollary~\ref{cor:rho}\\
+$B$, $d$, $\bar d$ & best one-step operator, deficit $d=BV-QV$, its maximum & Section~\ref{sec:reduction}\\
+$\alpha$, $\beta$ & rates $(1\pm\eps)/2$ away from and toward $0$ & Section~\ref{sec:folded}\\
+$X$, $\pi$, $p_s$ & folded chain, its stationary law, its transition probabilities & Section~\ref{sec:folded}\\
+$\hat p_s(j)$, $\mathcal S(s)$ & $p_s(j,0)/\pi(0)$; $\max_xp_s(x,x)/\pi(x)$ & Section~\ref{sec:folded}\\
+$\pi_Q$, $Z$ & stationary law of the product chain; the integrated kernel defining $V$ & Section~\ref{sec:folded}\\
+$X^\infty$, $f_t$ & the half-line chain; $f_t(x)=P_x(X^\infty_t=0)$ & Section~\ref{sec:intro}, Section~\ref{sec:halfline}\\
+$h_t$, $\kappa_t$, $\zeta$ & the ratio $k_t/f_t$ with $k_t(j)=f_t(j)-f_t(j+1)$, the killing rate at $0$, the time-inhomogeneous chain & Section~\ref{sec:halfline}\\
+$\Gamma(s)$ & $\hat p_s(1)\hat p_s(j)-\hat p_s(0)\hat p_s(j+1)$ & Section~\ref{sec:deficit}\\
+$t_0$, $K$, $\eta_L$, $T_m$ & $L^2/(K\log L)$, $K=250(D+3)$, $2L^{-K/250}$, the hitting time of $m$ & Section~\ref{sec:deficit}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{9}
+\bibitem{Anon26} Anonymous, \emph{Small diameter does not control hitting-time robustness}, preprint, Zenodo, 2026, \doi{10.5281/zenodo.23575572}.
+\bibitem{BP} \'A.~Baricz and S.~Ponnusamy, \emph{On Tur\'an type inequalities for modified Bessel functions},
+Proc.\ Amer.\ Math.\ Soc.\ \textbf{141} (2013), 523--532, \doi{10.1090/S0002-9939-2012-11325-5}.
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026,
+\url{https://github.com/yspennstate/brain-framework-public/tree/5629e644cdd510173ae97e9aa92642dabd22dc57}.
+\bibitem{Code} Y.~Shmalo, \emph{Hitting-time robustness of the discrete torus: source code and paper}, 2026,
+\url{https://github.com/yspennstate/torus-hitting-robustness}.
+\bibitem{Del99} T.~Delmotte, \emph{Parabolic Harnack inequality and estimates of Markov chains on graphs}, Rev.\ Mat.\
+Iberoamericana \textbf{15} (1999), 181--232, \doi{10.4171/RMI/254}.
+\bibitem{LPW17} D.~A.~Levin and Y.~Peres, \emph{Markov chains and mixing times}, 2nd ed., with contributions by
+E.~L.~Wilmer, American Mathematical Society, Providence, RI, 2017, \doi{10.1090/mbk/107}.
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026,
+\url{https://github.com/yspennstate/math-brain-public/tree/8c9a6bd478c4ec4082347151b7ae16db50c917dd}.
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research},
+2026, \doi{10.5281/zenodo.24150837},
+\url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+\bibitem{ShmCube} Y.~Shmalo, \emph{Hitting-time robustness of the hypercube}, preprint, 2026,
+\url{https://github.com/yspennstate/hypercube-hitting-robustness}.
+\bibitem{Zuc26} D.~Zuckerman, \emph{Markov chain robustness}, in: 17th Innovations in Theoretical Computer Science
+Conference (ITCS 2026), LIPIcs~362, Schloss Dagstuhl--Leibniz-Zentrum f\"ur Informatik, 2026, Paper~118,
+\doi{10.4230/LIPIcs.ITCS.2026.118}.
+\end{thebibliography}
+
+\end{document}

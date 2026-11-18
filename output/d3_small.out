@@ -1,0 +1,8 @@
+grid_rho.py:43: MatrixRankWarning: Matrix is exactly singular
+  Vn = np.zeros(N); Vn[keep] = spl.spsolve(M.tocsc(), np.ones(N - 1))
+D=3  ratio t_hit^+(c/L)/t_hit for c = 0.5, 1, 2, 4
+4 t_hit=83.2 1.5850 2.7506 12.0833 447121124572975.8750
+6 t_hit=294.1 1.6883 3.0805 13.4512 1400.2577
+8 t_hit=715.7 1.7645 3.3487 15.2586 993.9159
+10 t_hit=1420.7 1.8203 3.5561 16.8773 968.7912
+12 t_hit=2481.9 1.8627 3.7190 18.2591 1010.0398

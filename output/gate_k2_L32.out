@@ -1,0 +1,13 @@
+   argmax R at (23, 26, 29); sites with R>1e-8: 0; d there -2.910e-11
+D=3 L=32 c=0.5 kappa=2.0: min d=-4.37e-11 max R=1.120e-09 W/V=0.0008 V/t=2.02943 U/t=2.03096
+   argmax R at (23, 26, 29); sites with R>1e-8: 0; d there 0.000e+00
+D=3 L=32 c=1.0 kappa=2.0: min d=-8.73e-11 max R=1.863e-09 W/V=0.0016 V/t=4.39810 U/t=4.40505
+   argmax R at (16, 31, 16); sites with R>1e-8: 103; d there -2.328e-10
+D=3 L=32 c=2.0 kappa=2.0: min d=-4.66e-10 max R=1.156e-02 W/V=0.0032 V/t=24.88476 U/t=24.96463
+   argmax R at (20, 18, 24); sites with R>1e-8: 0; d there 0.000e+00
+D=3 L=40 c=0.5 kappa=2.0: min d=-8.73e-11 max R=1.513e-09 W/V=0.0004 V/t=2.05483 U/t=2.05564
+   argmax R at (32, 11, 27); sites with R>1e-8: 0; d there 5.821e-11
+D=3 L=40 c=1.0 kappa=2.0: min d=-1.75e-10 max R=4.016e-09 W/V=0.0008 V/t=4.50640 U/t=4.51010
+   argmax R at (20, 20, 39); sites with R>1e-8: 145; d there -4.657e-10
+D=3 L=40 c=2.0 kappa=2.0: min d=-1.40e-09 max R=7.510e-03 W/V=0.0017 V/t=26.05496 U/t=26.09825
+DONE
