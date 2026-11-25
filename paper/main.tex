@@ -21,6 +21,7 @@
 
 \title[Hitting-time robustness of the discrete torus]{Hitting-time robustness of the discrete torus}
 \author{Yitzchak Shmalo}
+\date{25 November 2026}
 \address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
 \email{yspennstate@gmail.com}
 \subjclass[2020]{60J10, 60J27, 05C81}
@@ -546,14 +547,15 @@ These entities are included in the funding declaration above.
 The programs described in Section~\ref{sec:checks} are in the repository~\cite{Code}.
 
 \section*{Declaration of generative AI and AI-assisted technologies}
-This paper is part of a broader research project on AI proving problems. Claude agents (Anthropic) proved
-Theorem~\ref{thm:main}, wrote the code of Section~\ref{sec:checks} and prepared the manuscript, and a separate
-Claude model reviewed the proofs and proposed the estimates of Section~\ref{sec:deficit}. The model, the
-definitions and the question are due to Zuckerman~\cite{Zuc26}, the upper bound $\rhit=O(1/L)$ follows from the
-adversary constructed in the proof of his Theorem~4.5, and the on-diagonal heat-kernel bound of
-Lemma~\ref{lem:kernel}(a) rests on Delmotte's Gaussian estimates~\cite{Del99}; the case $\eps=0$ of Lemma~\ref{lem:halfline} is a Tur\'an-type
-inequality for modified Bessel functions~\cite{BP}; Lemma~\ref{lem:reduction} is a standard supermartingale comparison. The author directed the work and is responsible
-for the content of the paper and for decisions concerning its dissemination.
+This paper is part of a broader research project on AI systems proving mathematical results. Claude agents
+(Anthropic) wrote the proof of Theorem~\ref{thm:main}, the code of Section~\ref{sec:checks} and the manuscript; a
+separate Claude model checked the proofs and proposed the estimates of Section~\ref{sec:deficit}. The model, the
+definitions and the question are due to Zuckerman~\cite{Zuc26}, and the upper bound $\rhit=O(1/L)$ follows from the
+adversary constructed in the proof of his Theorem~4.5. The on-diagonal heat-kernel bound of
+Lemma~\ref{lem:kernel}(a) rests on Delmotte's Gaussian estimates~\cite{Del99}, and the case $\eps=0$ of
+Lemma~\ref{lem:halfline} is the Tur\'an-type inequality for modified Bessel functions treated by Baricz and
+Ponnusamy~\cite{BP}. The author directed the work and is responsible for the content of the paper and for decisions
+concerning its dissemination.
 
 \appendix
 \section{Notation}\label{app:notation}
@@ -589,7 +591,7 @@ $t_0$, $K$, $\eta_L$, $T_m$ & $L^2/(K\log L)$, $K=250(D+3)$, $2L^{-K/250}$, the 
 \bibitem{BP} \'A.~Baricz and S.~Ponnusamy, \emph{On Tur\'an type inequalities for modified Bessel functions},
 Proc.\ Amer.\ Math.\ Soc.\ \textbf{141} (2013), 523--532, \doi{10.1090/S0002-9939-2012-11325-5}.
 \bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026,
-\url{https://github.com/yspennstate/brain-framework-public/tree/5629e644cdd510173ae97e9aa92642dabd22dc57}.
+\url{https://github.com/yspennstate/brain-framework-public/tree/46b935d26d5a2893f7790b60466387dd8da47ef5}.
 \bibitem{Code} Y.~Shmalo, \emph{Hitting-time robustness of the discrete torus: source code and paper}, 2026,
 \url{https://github.com/yspennstate/torus-hitting-robustness}.
 \bibitem{Del99} T.~Delmotte, \emph{Parabolic Harnack inequality and estimates of Markov chains on graphs}, Rev.\ Mat.\
@@ -597,12 +599,12 @@ Iberoamericana \textbf{15} (1999), 181--232, \doi{10.4171/RMI/254}.
 \bibitem{LPW17} D.~A.~Levin and Y.~Peres, \emph{Markov chains and mixing times}, 2nd ed., with contributions by
 E.~L.~Wilmer, American Mathematical Society, Providence, RI, 2017, \doi{10.1090/mbk/107}.
 \bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026,
-\url{https://github.com/yspennstate/math-brain-public/tree/8c9a6bd478c4ec4082347151b7ae16db50c917dd}.
+\url{https://github.com/yspennstate/math-brain-public/tree/5427734deee9be643d6dfbdd5e7d4baeeefe4a4a}.
 \bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research},
 2026, \doi{10.5281/zenodo.24150837},
-\url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+\url{https://github.com/yspennstate/math-brain-public/tree/5427734deee9be643d6dfbdd5e7d4baeeefe4a4a/papers/math-brain-2026-10-24}.
 \bibitem{ShmCube} Y.~Shmalo, \emph{Hitting-time robustness of the hypercube}, preprint, 2026,
-\url{https://github.com/yspennstate/hypercube-hitting-robustness}.
+\url{https://github.com/yspennstate/hypercube-hitting-robustness/tree/06ff4071f25410cfb983ad714c0b56020f90a224}.
 \bibitem{Zuc26} D.~Zuckerman, \emph{Markov chain robustness}, in: 17th Innovations in Theoretical Computer Science
 Conference (ITCS 2026), LIPIcs~362, Schloss Dagstuhl--Leibniz-Zentrum f\"ur Informatik, 2026, Paper~118,
 \doi{10.4230/LIPIcs.ITCS.2026.118}.

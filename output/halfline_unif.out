@@ -1,0 +1,4 @@
+e=0.0: max over t, j of (f0 f_(j+1) - f1 f_j)/(f1 f_j) = -3.333e-04 at (t, j) = (3000.0, 1)
+e=0.01: max over t, j of (f0 f_(j+1) - f1 f_j)/(f1 f_j) = -6.117e-04 at (t, j) = (3000.0, 1)
+e=0.05: max over t, j of (f0 f_(j+1) - f1 f_j)/(f1 f_j) = -3.039e-03 at (t, j) = (3000.0, 1)
+e=0.2: max over t, j of (f0 f_(j+1) - f1 f_j)/(f1 f_j) = -2.848e-02 at (t, j) = (3000.0, 1)

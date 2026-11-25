@@ -1,0 +1,12 @@
+D=3 L=16 c=0.5: opt/t=nan prod/t=1.917007 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=2.1841
+D=3 L=16 c=1.0: opt/t=nan prod/t=3.931483 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=5.0732
+D=3 L=16 c=2.0: opt/t=nan prod/t=20.147872 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=32.6002
+D=3 L=24 c=0.5: opt/t=nan prod/t=1.989652 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=2.1841
+D=3 L=24 c=1.0: opt/t=nan prod/t=4.230605 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=5.0732
+D=3 L=24 c=2.0: opt/t=nan prod/t=23.126926 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=32.6002
+D=3 L=32 c=0.5: opt/t=nan prod/t=2.029427 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=2.1841
+D=3 L=32 c=1.0: opt/t=nan prod/t=4.398096 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=5.0732
+D=3 L=32 c=2.0: opt/t=nan prod/t=24.884764 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=32.6002
+D=3 L=40 c=0.5: opt/t=nan prod/t=2.054834 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=2.1841
+D=3 L=40 c=1.0: opt/t=nan prod/t=4.506400 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=5.0732
+D=3 L=40 c=2.0: opt/t=nan prod/t=26.054961 rel.gap=nan max(V(x)-V(farther))=0.000e+00 pred=32.6002
